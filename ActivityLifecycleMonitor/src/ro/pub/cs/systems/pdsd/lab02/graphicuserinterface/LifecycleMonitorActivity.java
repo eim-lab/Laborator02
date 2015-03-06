@@ -74,7 +74,10 @@ public class LifecycleMonitorActivity extends Activity {
         okButton.setOnClickListener(buttonClickListener);
         Button cancelButton = (Button)findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(buttonClickListener);
-        Log.d(Constants.TAG, "onCreate() method was invoked");
+        if(savedInstanceState == null)
+        	Log.d(Constants.TAG, "onCreate() init");
+        else 
+        	Log.d(Constants.TAG, "onCreate() with bundle");
     }    
 
     @Override
@@ -95,4 +98,59 @@ public class LifecycleMonitorActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    //laborator02 
+    
+    @Override
+    protected void onStart() {
+      super.onStart();
+      Log.d(Constants.TAG, "ONSTART method was invoked");
+    }
+   
+    @Override
+    protected void onResume() {
+      super.onResume();
+      Log.d(Constants.TAG, "ONRESUME method was invoked");
+    }
+   
+    @Override
+    protected void onPause() {
+      super.onPause();
+      Log.d(Constants.TAG, "ONPAUSE method was invoked");
+    }
+   
+    @Override
+    protected void onStop() {
+      super.onStop();
+      Log.d(Constants.TAG, "ONSTOP method was invoked");
+    }
+   
+    @Override
+    protected void onDestroy() {
+      super.onDestroy();
+      Log.d(Constants.TAG, "ONDESTROY method was invoked");
+    }
+   
+    @Override
+    protected void onRestart() {
+      super.onRestart();
+      Log.d(Constants.TAG, "ONRESTART method was invoked");
+    }
+   
+    // metode folosite pentru salvarea si restaurarea starii    
+   
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+      // apelarea metodei din activitatea parinte este recomandata, dar nu obligatorie
+      super.onSaveInstanceState(savedInstanceState);
+      Log.d(Constants.TAG, "SAVE BUNDLE method was invoked");
+    }
+   
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+      // apelarea metodei din activitatea parinte este recomandata, dar nu obligatorie
+      super.onRestoreInstanceState(savedInstanceState);
+      Log.d(Constants.TAG, "RESTORE BUNDLE method was invoked");
+    }
+    
 }
