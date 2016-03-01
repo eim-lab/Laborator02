@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
@@ -76,8 +77,24 @@ public class LifecycleMonitorActivity extends Activity {
         cancelButton.setOnClickListener(buttonClickListener);
         if(savedInstanceState == null)
         	Log.d(Constants.TAG, "onCreate() init");
-        else 
+        else {
         	Log.d(Constants.TAG, "onCreate() with bundle");
+        	  
+        	CheckBox checkb = (CheckBox)findViewById(R.id.remember_me_checkbox);
+        	Log.d(Constants.TAG, "restore checkbox = " + checkb.isChecked());
+        	// nu se restaureaza de catre Android decat mai tarziu, in onRestoreInstance. 
+        	if(true || checkb.isChecked()){
+        		String name = savedInstanceState.getString("name"); 
+        		String pass = savedInstanceState.getString("pass");
+        		Log.d(Constants.TAG, "restore " + name + " " + pass);
+        		
+        		EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+        		EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+        		usernameEditText.setText(name);
+        		passwordEditText.setText(pass);
+        	}    	  
+       
+        }
     }    
 
     @Override
@@ -144,6 +161,13 @@ public class LifecycleMonitorActivity extends Activity {
       // apelarea metodei din activitatea parinte este recomandata, dar nu obligatorie
       super.onSaveInstanceState(savedInstanceState);
       Log.d(Constants.TAG, "SAVE BUNDLE method was invoked");
+      CheckBox checkb = (CheckBox)findViewById(R.id.remember_me_checkbox);
+      if(checkb.isChecked()){
+			EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+			EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+			savedInstanceState.putString("name", usernameEditText.getText().toString());
+			savedInstanceState.putString("pass", passwordEditText.getText().toString());
+      }
     }
    
     @Override
@@ -151,6 +175,22 @@ public class LifecycleMonitorActivity extends Activity {
       // apelarea metodei din activitatea parinte este recomandata, dar nu obligatorie
       super.onRestoreInstanceState(savedInstanceState);
       Log.d(Constants.TAG, "RESTORE BUNDLE method was invoked");
+   	CheckBox checkb = (CheckBox)findViewById(R.id.remember_me_checkbox);
+	Log.d(Constants.TAG, "restoreBundle checkbox = " + checkb.isChecked());
+	
+     /* if(savedInstanceState != null){
+          CheckBox checkb = (CheckBox)findViewById(R.id.remember_me_checkbox);
+          if(checkb.isChecked()){
+        	  String name = savedInstanceState.getString("name"); 
+        	  String pass = savedInstanceState.getString("pass");
+
+        	  EditText usernameEditText = (EditText)findViewById(R.id.username_edit_text);
+        	  EditText passwordEditText = (EditText)findViewById(R.id.password_edit_text);
+        	  usernameEditText.setText(name);
+        	  passwordEditText.setText(pass);
+          }    	  
+      } 
+      */
     }
     
 }
