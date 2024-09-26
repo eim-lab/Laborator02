@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 30
     defaultConfig {
         applicationId "ro.pub.systems.eim.lab02.activitylifecyclemonitor"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+     compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget='17'
+    }
+    namespace 'ro.pub.systems.eim.lab02.activitylifecyclemonitor'
 }
 
 dependencies {
