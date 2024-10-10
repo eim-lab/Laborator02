@@ -1,7 +1,6 @@
 package ro.pub.systems.eim.lab02.activitylifecyclemonitor.entities
 
 class Credential {
-    @kotlin.jvm.JvmField
     var username: String
     var password: String
 
